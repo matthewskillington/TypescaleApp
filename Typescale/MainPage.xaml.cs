@@ -23,7 +23,7 @@ namespace Typescale
             new Typescale("Open Sans Semi-bold 21", "H1 Heading", "36.75"),
             new Typescale("Open Sans Semi-bold 18", "H2 Heading", "31.5"),
             new Typescale("Open Sans Regular 18","H3 Heading", "31.5"),
-            new Typescale("Open Sans SemiBold 16", "Subtitle 1", "28"),
+            new Typescale("Open Sans Semi-bold 16", "Subtitle 1", "28"),
             new Typescale("Open Sans Regular 16", "Subtitle 2", "28"),
             new Typescale("Open Sans Regular 14", "Body Text", "24.5"),
             new Typescale("Open Sans Bold 14", "Label", "24.5"),
@@ -72,7 +72,7 @@ namespace Typescale
                     FontFamily = SetFontFromDevice("OpenSans-Regular")
                 };
                 Label[] labelsbefore = { label1, label2, label3 };
-                labelsbefore = SetLabelFonts(labelsbefore, i);
+                labelsbefore = SetLabelFonts(labelsbefore);
                 ObservableCollection<Frame> frames = FrameLabels(labelsbefore);
 
                 int x = 0;
@@ -85,16 +85,16 @@ namespace Typescale
 
         }
         //Takes each label and sets the fonts for each device
-        public Label [] SetLabelFonts(Label [] labels, int loopCount)
+        public Label [] SetLabelFonts(Label [] labels)
         {
 
-            if (loopCount == 0 || loopCount == 1 || loopCount == 3)
+            if (labels[0].Text.Contains("Semi-bold"))
             {
                 labels[1].FontFamily = SetFontFromDevice("OpenSans-SemiBold");
-            } else if (loopCount == 2 || loopCount == 4 || loopCount == 5 || loopCount == 7)
+            } else if (labels[0].Text.Contains("Regular"))
             {
                 labels[1].FontFamily = SetFontFromDevice("OpenSans-Regular");
-            } else if (loopCount == 6)
+            } else if (labels[0].Text.Contains("Bold 14"))
             {
                 labels[1].FontFamily = SetFontFromDevice("OpenSans-Bold"); 
             }
