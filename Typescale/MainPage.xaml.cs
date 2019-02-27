@@ -87,7 +87,6 @@ namespace Typescale
         //Takes each label and sets the fonts for each device
         public Label [] SetLabelFonts(Label [] labels)
         {
-
             if (labels[0].Text.Contains("Semi-bold"))
             {
                 labels[1].FontFamily = SetFontFromDevice("OpenSans-SemiBold");
@@ -111,6 +110,10 @@ namespace Typescale
             } else if(Device.RuntimePlatform == Device.Android)
             {
                 return font + ".ttf#" + font;
+            }
+            else if(Device.RuntimePlatform == Device.UWP)
+            {
+                return "Assets/Fonts/" + font + ".ttf#" + "Open Sans";
             }
             else
             {
