@@ -20,14 +20,14 @@ namespace Typescale
 
         ObservableCollection<Typescale> values = new ObservableCollection<Typescale>
         {
-            new Typescale("Open Sans Semi-bold 21", "H1 Heading", "36.75"),
-            new Typescale("Open Sans Semi-bold 18", "H2 Heading", "31.5"),
-            new Typescale("Open Sans Regular 18","H3 Heading", "31.5"),
-            new Typescale("Open Sans Semi-bold 16", "Subtitle 1", "28"),
-            new Typescale("Open Sans Regular 16", "Subtitle 2", "28"),
-            new Typescale("Open Sans Regular 14", "Body Text", "24.5"),
-            new Typescale("Open Sans Bold 14", "Label", "24.5"),
-            new Typescale("Open Sans Regular 10", "Caption", "17.5")
+            new Typescale("Open Sans Semi-bold 21", "H1 Heading", 36.75F),
+            new Typescale("Open Sans Semi-bold 18", "H2 Heading", 31.5F),
+            new Typescale("Open Sans Regular 18","H3 Heading", 31.5F),
+            new Typescale("Open Sans Semi-bold 16", "Subtitle 1", 28),
+            new Typescale("Open Sans Regular 16", "Subtitle 2", 28),
+            new Typescale("Open Sans Bold 14", "Label", 24.5F),
+            new Typescale("Open Sans Regular 10", "Caption", 17.5F),
+            new Typescale("Open Sans Regular 14", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut suscipit dapibus dui, ut gravida magna. Proin mollis felis risus, sit amet auctor sapien interdum at. Etiam molestie scelerisque odio. Aenean rutrum a felis vel facilisis. Phasellus dignissim tellus eu convallis vestibulum. Vivamus pharetra vitae mi non sodales. Fusce gravida quam non ex porttitor, sed imperdiet ex scelerisque. Sed fermentum urna velit, vel volutpat nunc ultrices nec. Integer gravida metus at nunc dapibus, ut ornare eros tincidunt. Donec vulputate porta odio, eget faucibus ipsum. Sed suscipit lectus eleifend massa egestas, in auctor libero rhoncus. Proin gravida, diam aliquam bibendum viverra, tellus risus mollis diam, ut egestas lectus nibh vitae massa. Nam nec massa et diam dictum iaculis. Maecenas facilisis dignissim elit eget lobortis. Suspendisse nisi neque, ultrices non ligula at, sollicitudin cursus enim. Vestibulum sed tempor enim, quis maximus tellus.", 24.5F)
         };
 
         public void RenderValues()
@@ -37,12 +37,12 @@ namespace Typescale
             for (int i = 0; i < values.Count; i++)
             {
                 var row = i;
-                var label1 = new Label();
-                var label2 = new Label();
-                var label3 = new Label();
+                var label1 = new CustomLabel();
+                var label2 = new CustomLabel();
+                var label3 = new CustomLabel();
 
 
-                label1 = new Label
+                label1 = new CustomLabel
                 {
                     Text = values[i].FontName,
                     Style = (Style)Application.Current.Resources["LabelStyles"],
@@ -52,7 +52,7 @@ namespace Typescale
                     FontFamily = SetFontFromDevice("OpenSans-Regular")
 
                 };
-                label2 = new Label
+                label2 = new CustomLabel
                 {
                     Text = values[i].FontString,
                     Style = (Style)Application.Current.Resources["LabelStyles"],
@@ -60,10 +60,11 @@ namespace Typescale
                     VerticalTextAlignment = TextAlignment.End,
                     Margin = new Thickness(5, 0, 0, 5),
                     FontSize = values[i].FontSize,
+                    LineHeight = values[i].LineHeight
                 };
-                label3 = new Label
+                label3 = new CustomLabel
                 {
-                    Text = values[i].LineHeight,
+                    Text = values[i].LineHeight.ToString(),
                     Style = (Style)Application.Current.Resources["LabelStyles"],
                     VerticalTextAlignment = TextAlignment.End,
                     HorizontalTextAlignment = TextAlignment.Start,
@@ -144,7 +145,7 @@ namespace Typescale
         }
 
         public class Typescale: BindableObject {
-            public Typescale(string _fontName, string _fontString, string _lineHeight)
+            public Typescale(string _fontName, string _fontString, float _lineHeight)
             {
                 FontName = _fontName;
                 FontString = _fontString;
@@ -153,7 +154,7 @@ namespace Typescale
             }
             public string FontName;
             public string FontString;
-            public string LineHeight;
+            public float LineHeight;
             public int FontSize;
 
             private int SetFontSize()
