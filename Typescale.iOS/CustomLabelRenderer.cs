@@ -5,11 +5,11 @@ using System.ComponentModel;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using Ideagen.Coruson.Mobile.iOS.Renderers;
+using Typescale.iOS.Renderers;
 
 [assembly: ExportRenderer(typeof(CustomLabel), typeof(LabelLineHeight))]
 
-namespace Ideagen.Coruson.Mobile.iOS.Renderers
+namespace Typescale.iOS.Renderers
 {
 
     public partial class LabelLineHeight : LabelRenderer
@@ -42,13 +42,17 @@ namespace Ideagen.Coruson.Mobile.iOS.Renderers
 
             var paragraphStyle = new NSMutableParagraphStyle
             {
-                LineSpacing = (nfloat)((CustomLabel)Element).LineHeight
-            };
+                LineSpacing = (nfloat)((CustomLabel)Element).LineHeight - (nfloat)((CustomLabel)Element).FontSize,
+        };
 
             var range = new NSRange(0, labelString.Length);
 
-            labelString.AddAttribute(UIStringAttributeKey.ParagraphStyle, paragraphStyle, range);
-            Control.AttributedText = labelString;
+            if (paragraphStyle.LineSpacing > 0)
+            {
+                labelString.AddAttribute(UIStringAttributeKey.ParagraphStyle, paragraphStyle, range);
+
+                Control.AttributedText = labelString;
+            }
         }
     }
 }

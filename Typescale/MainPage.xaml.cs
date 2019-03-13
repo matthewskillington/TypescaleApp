@@ -38,7 +38,7 @@ namespace Typescale
             {
                 var row = i;
                 var label1 = new CustomLabel();
-                var label2 = new Label();
+                var label2 = new CustomLabel();
                 var label3 = new CustomLabel();
 
 
@@ -52,7 +52,7 @@ namespace Typescale
                     FontFamily = SetFontFromDevice("OpenSans-Regular")
 
                 };
-                label2 = new Label
+                label2 = new CustomLabel
                 {
                     Text = values[i].FontString,
                     Style = (Style)Application.Current.Resources["LabelStyles"],
@@ -60,7 +60,7 @@ namespace Typescale
                     VerticalTextAlignment = TextAlignment.End,
                     Margin = new Thickness(5, 0, 0, 5),
                     FontSize = values[i].FontSize,
-                    LineHeight = SetLineHeightFromDevice(values[i])
+                    LineHeight = Device.RuntimePlatform == Device.UWP ? values[i].LineHeight / values[i].FontSize : values[i].LineHeight
                 };
                 label3 = new CustomLabel
                 {
@@ -119,18 +119,6 @@ namespace Typescale
             else
             {
                 return null;
-            }
-        }
-
-        public double SetLineHeightFromDevice(Typescale values)
-        {
-            if (Device.RuntimePlatform == Device.UWP)
-            {
-                return values.LineHeight / values.FontSize;
-            }
-            else
-            {
-                return values.LineHeight / values.FontSize;
             }
         }
 
