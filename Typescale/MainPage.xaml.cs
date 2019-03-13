@@ -60,7 +60,7 @@ namespace Typescale
                     VerticalTextAlignment = TextAlignment.End,
                     Margin = new Thickness(5, 0, 0, 5),
                     FontSize = values[i].FontSize,
-                    LineHeight = SetLineHeightFromDevice(values[i].LineHeight)
+                    LineHeight = SetLineHeightFromDevice(values[i])
                 };
                 label3 = new CustomLabel
                 {
@@ -122,23 +122,15 @@ namespace Typescale
             }
         }
 
-        public double SetLineHeightFromDevice(float lineHeight)
+        public double SetLineHeightFromDevice(Typescale values)
         {
-            if (Device.RuntimePlatform == Device.iOS)
+            if (Device.RuntimePlatform == Device.UWP)
             {
-                return lineHeight;
-            }
-            else if (Device.RuntimePlatform == Device.Android)
-            {
-                return lineHeight / 10;
-            }
-            else if (Device.RuntimePlatform == Device.UWP)
-            {
-                return lineHeight / 10;
+                return values.LineHeight / values.FontSize;
             }
             else
             {
-                return lineHeight;
+                return values.LineHeight / values.FontSize;
             }
         }
 
