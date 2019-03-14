@@ -37,9 +37,11 @@ namespace Typescale
             for (int i = 0; i < values.Count; i++)
             {
                 var row = i;
-                var label1 = new CustomLabel();
-                var label2 = new CustomLabel();
-                var label3 = new CustomLabel();
+                CustomLabel label1;
+                Label label2;
+                CustomLabel label3;
+
+                label2 = new Label();
 
 
                 label1 = new CustomLabel
@@ -52,16 +54,35 @@ namespace Typescale
                     FontFamily = SetFontFromDevice("OpenSans-Regular")
 
                 };
-                label2 = new CustomLabel
+
+                // If statement to prevent UWP having to use a custom label where not necccesary
+                if (Device.RuntimePlatform == Device.UWP)
                 {
-                    Text = values[i].FontString,
-                    Style = (Style)Application.Current.Resources["LabelStyles"],
-                    HorizontalTextAlignment = TextAlignment.Start,
-                    VerticalTextAlignment = TextAlignment.End,
-                    Margin = new Thickness(5, 0, 0, 5),
-                    FontSize = values[i].FontSize,
-                    LineHeight = Device.RuntimePlatform == Device.UWP ? values[i].LineHeight / values[i].FontSize : values[i].LineHeight
-                };
+                    label2 = new Label
+                    {
+                        Text = values[i].FontString,
+                        Style = (Style)Application.Current.Resources["LabelStyles"],
+                        HorizontalTextAlignment = TextAlignment.Start,
+                        VerticalTextAlignment = TextAlignment.End,
+                        Margin = new Thickness(5, 0, 0, 5),
+                        FontSize = values[i].FontSize,
+                        LineHeight = values[i].LineHeight / values[i].FontSize 
+                    };
+                }
+                else
+                {
+                    label2 = new CustomLabel
+                    {
+                        Text = values[i].FontString,
+                        Style = (Style)Application.Current.Resources["LabelStyles"],
+                        HorizontalTextAlignment = TextAlignment.Start,
+                        VerticalTextAlignment = TextAlignment.End,
+                        Margin = new Thickness(5, 0, 0, 5),
+                        FontSize = values[i].FontSize,
+                        LineHeight = values[i].LineHeight
+                    };
+                }
+
                 label3 = new CustomLabel
                 {
                     Text = values[i].LineHeight.ToString(),
